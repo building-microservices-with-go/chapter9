@@ -1,0 +1,21 @@
+version: '2'
+services:
+  nats:
+    image: nats
+    ports:
+     - "4222:4222"
+     - "8222:8222"
+  receiver:
+    build:
+      context: ./publisher
+    links:
+      - nats
+    ports:
+      - 8081:8081
+  publisher:
+    build:
+      context: ./publisher
+    links:
+      - nats
+    ports:
+      - 8080:8080

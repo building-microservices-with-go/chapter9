@@ -1,0 +1,24 @@
+version: '2'
+services:
+  redis:
+    image: 'redis:latest'
+    ports:
+      - '::6380'
+      - '::6379'
+  writer:
+    build:
+      context: ./writer
+    links:
+      - redis
+    ports:
+      - 8080:8080
+  reader1:
+    build:
+      context: ./reader
+    links:
+      - redis
+  reader2:
+    build:
+      context: ./reader
+    links:
+      - redis
